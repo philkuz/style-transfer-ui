@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-
+from style_transfer import ffwd_to_img
 app = Flask(__name__, static_folder='static/js')
 
 import binascii
@@ -13,7 +13,8 @@ def receive_image():
       f.write(image_str)
 
 
-
-
+    # TODO set checkpoint dir as an option
+    ffwd_to_img('tmp.png', 'tmp/', 'checkpoints/',
+        device='/gpu:0')
     return 'image received'
     # return image
