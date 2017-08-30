@@ -36,8 +36,13 @@ function getStyle() {
   console.log(style);
   return  style;
 }
-
-  // $('#styleDropdown').live('change', function(e) {
-  //   // TODO change the style image displayed
-  //   // e.target.options[e.target.selectedIndex].text
-  // });
+renderStyle(getStyle());
+function renderStyle(style) {
+  url_path = 'static/style/';
+  format_img = url_path +  style + '.jpg';
+  document.getElementById('style').innerHTML = 
+    '<img src="'+format_img+'"/>';
+}
+  $('#styleDropdown').on('change', function(e) {
+    renderStyle(e.target.options[e.target.selectedIndex].text)
+  });

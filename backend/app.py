@@ -6,11 +6,12 @@ sys.path.insert(0, '.')
 from style_transfer import evaluate #import ffwd_to_img
 import binascii
 
-app = Flask(__name__, static_folder='static/js')
+app = Flask(__name__, static_folder='static')
 
 cors = CORS(app, resources={r"/foo": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 styles = ['rain_princess', 'scream', 'udnie', 'wave', 'wreck']
+
 @app.route('/image', methods=['POST'])
 @cross_origin(origin='*', headers=['Content-Type','Authorization'])
 def receive_image():
@@ -28,7 +29,7 @@ def receive_image():
     # TODO set checkpoint dir as an option
     evaluate.ffwd_to_img('tmp.png', 'processed.png', 'checkpoints/{}.ckpt'.format(style),
         device='/gpu:0')
-    
+
     with open('processed.png', 'rb') as f:
         image_out = binascii.b2a_base64(f.read())
     return image_out
