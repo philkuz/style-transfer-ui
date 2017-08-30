@@ -7,6 +7,7 @@ from style_transfer import evaluate #import ffwd_to_img
 import binascii
 
 app = Flask(__name__, static_folder='static/js')
+
 cors = CORS(app, resources={r"/foo": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 styles = ['rain_princess', 'scream', 'udnie', 'wave', 'wreck']
@@ -32,3 +33,7 @@ def receive_image():
         image_out = binascii.b2a_base64(f.read())
     return image_out
     # return image
+
+@app.route('/')
+def main_route():
+    return render_template('index.html')
