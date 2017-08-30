@@ -1,0 +1,12 @@
+[Unit]
+Description="uWSGI server instance configured to serve styletransferui"
+
+[Install]
+WantedBy=default.target
+
+[Service]
+User=mlab
+Group=www-data
+WorkingDirectory=/home/mlab/philkuz/style-transfer-ui/backend 
+ExecStart=/bin/bash -c 'PATH=/home/mlab/.virtualenvs/flask/bin:$PATH exec uwsgi --ini backend.ini'
+Restart=always
